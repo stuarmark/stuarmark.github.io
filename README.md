@@ -7,5 +7,6 @@ http://gohugo.io/
 https://github.com/mgjohansen/hucore
 
 #### Google Fonts Sorts Mill Goudy & Josefin Sans
-https://fonts.google.com/specimen/Sorts+Mill+Goudy 
+https://fonts.google.com/specimen/Sorts+Mill+Goudy
+
 https://fonts.google.com/specimen/Josefin+Sans
