@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mark Stuart | Github IO</title>
+    <link>http://example.org/</link>
+    <description>Recent content on Mark Stuart | Github IO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2017 | &lt;a href=&#34;https://github.com/mgjohansen/hucore.git&#34; target=&#34;_blank&#34;&gt;Hucore theme&lt;/a&gt; &amp; &lt;a href=&#34;http://gohugo.io&#34; target=&#34;_blank&#34;&gt;Hugo&lt;/a&gt; ♥</copyright>
+    <lastBuildDate>Wed, 08 Nov 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The GCP</title>
+      <link>http://example.org/posts/test_post/</link>
+      <pubDate>Wed, 08 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/posts/test_post/</guid>
+      <description>In my opinion - Google Cloud Platform (GCP) is outpacing other cloud IAAS/PAAS services in the race to be the premier provider.
+Background &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;I&amp;rsquo;ve used cloud PAAS providers both personally/professionally for the last 4 years in small scale consulting and personal projects and can attest that they live up to the hype. Easy to develop, deploy, and administer applications along with services. The offerings to be had continue to increase and diversify - all with an inversely correlated drop in price.</description>
+    </item>
+    
+  </channel>
+</rss>
