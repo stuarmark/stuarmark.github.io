@@ -6,11 +6,22 @@
     <description>Recent content in Posts on Mark Stuart | Github IO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&amp;copy; 2017 | &lt;a href=&#34;https://github.com/mgjohansen/hucore.git&#34; target=&#34;_blank&#34;&gt;Hucore theme&lt;/a&gt; &amp; &lt;a href=&#34;http://gohugo.io&#34; target=&#34;_blank&#34;&gt;Hugo&lt;/a&gt; ♥</copyright>
-    <lastBuildDate>Wed, 08 Nov 2017 00:00:00 +0000</lastBuildDate>
+    <copyright>&amp;copy; 2017 | &lt;a href=&#34;https://github.com/mgjohansen/hucore.git&#34; target=&#34;_blank&#34;&gt;Hucore theme&lt;/a&gt; &amp; &lt;a href=&#34;http://gohugo.io&#34; target=&#34;_blank&#34;&gt;Hugo&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 17 Dec 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://stuarmark.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Using GCP Cloud Source Repository</title>
+      <link>https://stuarmark.github.io/posts/20171217/</link>
+      <pubDate>Sun, 17 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://stuarmark.github.io/posts/20171217/</guid>
+      <description>tldr;
+Google Cloud Platform (GCP) has a great code/document repo service (Cloud Source Repository) that is free for 5 project/users month.
+Repositories &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;It goes without saying that if you work with code, or any type of document where you&amp;rsquo;d like to save versions, then having a code source control (github, gitlab, etc) or cloud storage service (box, dropbox, etc) is essential. One great feature of the GCP is the Cloud Source Repository service which is a hosted version control system.</description>
+    </item>
     
     <item>
       <title>The GCP</title>
@@ -18,7 +29,8 @@
       <pubDate>Wed, 08 Nov 2017 00:00:00 +0000</pubDate>
       
       <guid>https://stuarmark.github.io/posts/20171108/</guid>
-      <description>tldr;In my opinion - Google Cloud Platform (GCP) is outpacing other cloud IAAS/PAAS services in the race to be the premier provider.
+      <description>tldr;
+In my opinion - Google Cloud Platform (GCP) is outpacing other cloud IAAS/PAAS services in the race to be the premier provider.
 Background &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;I&amp;rsquo;ve used cloud PAAS providers both personally/professionally for the last 4 years in small scale consulting and personal projects and can attest that they live up to the hype. Easy to develop, deploy, and administer applications along with services. The offerings to be had continue to increase and diversify - all with an inversely correlated drop in price.</description>
     </item>
     

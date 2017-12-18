@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="Programming, Google Cloud Platform, Go" name="keywords">
+<meta content="Mark Stuart" name="author">
+<meta property="og:title" content="Using GCP Cloud Source Repository - Mark Stuart | Github IO">
+<meta property="og:url" content="https://stuarmark.github.io/posts/20171217/">
+<meta property="og:description" content="Mark Stuart&#39;s Github IO pages">
+<meta property="og:type" content="website" />
+<title>Using GCP Cloud Source Repository | Mark Stuart | Github IO</title>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy|Josefin+Sans" >
+<link rel="stylesheet" href="https://stuarmark.github.io//css/style.css">
+<link rel="shortcut icon" href="https://stuarmark.github.io//wave.ico">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
+
+</head>
+
+<body>
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://stuarmark.github.io/"><h1 class="title is-4">Mark Stuart | Github IO</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://github.com/stuarmark" target="_blank">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://www.linkedin.com/in/mark-stuart-877143a/" target="_blank">
+            <span class="icon">
+              <i class="fa fa-linkedin-square"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">Using GCP Cloud Source Repository</h1>
+    <h2 class="subtitle is-5">17-Dec-2017</h2>
+    
+    <div class="content">
+      
+
+<p><strong>tldr;</strong><br />
+<em>Google Cloud Platform (GCP) has a great code/document repo service (Cloud Source Repository) that is free for 5 project/users month.</em></p>
+
+<h3 id="repositories">Repositories</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It goes without saying that if you work with code, or any type of document where you&rsquo;d like to save versions, then having a code source control (github, gitlab, etc) or cloud storage service (box, dropbox, etc) is essential.  One great feature of the GCP is the <a href="https://cloud.google.com/source-repositories/" title="GCP Cloud Source Repository">Cloud Source Repository service</a> which is a hosted version control system.  When you sign up for a GCP account you can start using the service and storing your code/d  **Please note that only the git version control is supported at this time.</p>
+
+<h3 id="pricing">Pricing</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It&rsquo;s pretty straightforward: you get unlimited number of repositories/month for up to 5 project/users month - which means if you are working on 3 projects by yourself then you aren&rsquo;t being charged vs if you work with an additional user on 3 projects you are since that is: 2 users X 3 projects.  Even if you do go over the 5 user/project limit it&rsquo;s only $1 per user/project for unlimited repos which is a great deal - esp if you are utilizing other GCP services.</p>
+
+<h3 id="usages">Usages</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Besides the know uses of repositories to store versions of computer code you can also use GCP cloud repos for:</p>
+
+<ul>
+<li>Recipe sharing and editing: clone the recipe, make changes, share, and keep versions for future use.</li>
+<li>Writing &amp; Blogging: Keep different versions of your text/stories and explore plots while being able to scrap and return to starting points easily.</li>
+<li>Legal Documents: While blockchain may be the future of legal documentation GCP cloud repos are an excellent way to provide control and versioning of important items and provide an audit trail to changes made.</li>
+<li>Resume: Store versions of your resume and allow for others to review/edit and merge their changes in.</li>
+</ul>
+
+<h3 id="getting-started">Getting Started</h3>
+
+<ol>
+<li>Sign up for an account on the Google Cloud Platform:  <a href="https://console.cloud.google.com/freetrial">https://console.cloud.google.com/freetrial</a></li>
+<li>Once your account is created you need to create a project that you can associate with your Cloud Source Repos -&gt;
+Navigate to the Product &amp; services link in the upper left corner:<br />
+<img src="../../img/20171217-products-services-link.png" alt="Product & services link" style="width: 22em;height:6em"/><br /></li>
+
+<li><p>From the menu list select &lsquo;IAM &amp; admin&rsquo; -&gt; &lsquo;Manage Resources&rsquo;:<br />
+<img src="../../img/20171217-manage-resources-link.png" alt="Manage Resources" style="width: 16em;height:12em"/></p></li>
+
+<li><p>On the Mange Resources view just click &lsquo;Create Project&rsquo; and add a name:<br />
+<img src="../../img/20171217-create-project.png" alt="Create Project" style="width: 25em;height:6em"/></p></li>
+
+<li><p>Once your project is created and selected then navigate to Source Repositories (under Tools):<br />
+<img src="../../img/20171217-cloud-repos.png" alt="Source Repositories" style="width: 19em;height:6em"/></p></li>
+
+<li><p>Go ahead and start creating repos!<br />
+<img src="../../img/20171217-create-repos.png" alt="Create Repository" style="width: 25em;height:6em"/></p></li>
+</ol>
+
+<h3 id="finishing-up">Finishing up</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hopefully this short post has helped convince you to take a look at the GCP Cloud Source Repository to use in whatever document/source code strategy you need.  The next post will be around installing the gcloud CLI command line tool and we&rsquo;ll run through some gcloud repo command examples to create and manage repos.  Thanks for reading!</p>
+
+    </div>
+    
+        <div class="nav-left">
+    <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fstuarmark.github.io%2fposts%2f20171217%2f" title="Share on Facebook" target="_blank"><span class="fa fa-facebook fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://plus.google.com/share?url=https%3a%2f%2fstuarmark.github.io%2fposts%2f20171217%2f" title="Share on Google+" target="_blank"><span class="fa fa-google-plus fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fstuarmark.github.io%2fposts%2f20171217%2f" title="Share on LinkedIn" target="_blank"><span class="fa fa-linkedin fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://twitter.com/home?status=Using%20GCP%20Cloud%20Source%20Repository - https%3a%2f%2fstuarmark.github.io%2fposts%2f20171217%2f" title="Tweet this" target="_blank"><span class="fa fa-twitter fa-2x"></span></a>
+    <a class="nav-item" href="http://www.reddit.com/submit?url=https%3a%2f%2fstuarmark.github.io%2fposts%2f20171217%2f&title=Using%20GCP%20Cloud%20Source%20Repository" title="Share on Reddit" target="_blank"><span class="fa fa-reddit-alien fa-2x" aria-hidden="true"></span></a>
+    
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; 2017 | <a href="https://github.com/mgjohansen/hucore.git" target="_blank">Hucore theme</a> & <a href="http://gohugo.io" target="_blank">Hugo</a></p>
+  </div>
+</section>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js" integrity="sha256-+bhVTaRmJ/c07eV80nU8gD2cBBF0rYkf1txqXlrbvb0=" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/languages/go.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/languages/css.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/languages/html.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+</body>
