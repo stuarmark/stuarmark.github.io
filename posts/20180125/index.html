@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="Programming, Google Cloud Platform, Go" name="keywords">
+<meta content="Mark Stuart" name="author">
+<meta property="og:title" content="Some golang channel observations - Mark Stuart | Github IO">
+<meta property="og:url" content="https://stuarmark.github.io/posts/20180125/">
+<meta property="og:description" content="Mark Stuart&#39;s Github IO pages">
+<meta property="og:type" content="website" />
+<title>Some golang channel observations | Mark Stuart | Github IO</title>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy|Josefin+Sans" >
+<link rel="stylesheet" href="https://stuarmark.github.io//css/style.css">
+<link rel="shortcut icon" href="https://stuarmark.github.io//wave.ico">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
+
+</head>
+
+<body>
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://stuarmark.github.io/"><h1 class="title is-4">Mark Stuart | Github IO</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://github.com/stuarmark" target="_blank">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://www.linkedin.com/in/mark-stuart-877143a/" target="_blank">
+            <span class="icon">
+              <i class="fa fa-linkedin-square"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">Some golang channel observations</h1>
+    <h2 class="subtitle is-5">25-Jan-2018</h2>
+    
+    <div class="content">
+      
+
+<p><strong>tldr;</strong><br />
+Working on an interesting golang tutorial using channels I came to a few helpful conclusions.</p>
+
+<h3 id="starting-out">Starting Out</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The particular problem I was solving was a rock-paper-scissors game where I was trying to
+determine my opponent&rsquo;s choice and make sure that I would beat them <a href="https://github.com/stuarmark/learn-go/blob/master/src/exercises/rock-paper-scissors/main.go">(see this)</a> when we came to the &lsquo;showdown&rsquo;.  There was one channel that was passed to both my &lsquo;player&rsquo; function and my &lsquo;opponent&rsquo;, with which you could send and recieve a struct with a user id along with the choice made: 1-Rock, 2-Paper, and 3-Scissors.  There was also an additional channel that was passed to the functions as well - with which an empty struct was sent and recieved.</p>
+
+<h3 id="right-off-the-bat">Right off the bat</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Even after reading the golang documentation on <a href="https://godoc.org/github.com/eapache/channels">channels</a> they seemed a little strange to me.  I continued to run into many &lsquo;locking&rsquo; errors as I worked through the exercise trying to recieve the Choice struct from the Guess channel.  By the way - the error was:  <em>fatal error: all goroutines are asleep - deadlock</em>!  Searching through the first few posts on Stack Overflow it became clear that any channel created without a buffer length is synchronous - it will block on the main thread until a read is performed.  For example:</p>
+
+<pre><code>package main
+import (
+	&quot;fmt&quot;
+	&quot;time&quot;
+	)
+func main() {
+    messages := make(chan string)
+
+    go func() { 
+	fmt.Println(&quot;About to send the message&quot;)
+	messages &lt;- &quot;ping&quot; 
+    }()
+
+
+    time.Sleep(time.Second * 3)
+    fmt.Println(&quot;blocked&quot;)
+
+    msg := &lt;-messages
+    fmt.Println(msg)
+}
+</code></pre>
+
+<p><a href="https://play.golang.org/p/se_pIjU-ZfO">golang playground</a>
+</br>ref: <a href="http://guzalexander.com/2013/12/06/golang-channels-tutorial.html">http://guzalexander.com/2013/12/06/golang-channels-tutorial.html</a></p>
+
+<h3 id="timing-is-everything">Timing is everything</h3>
+
+<p>Closing a channel unblocks the main thread and allows reading of objects off the channel to continue - where it is closed is important:</p>
+
+<pre><code>package main
+
+import (
+	&quot;fmt&quot;
+	)
+
+func main() {
+     // Data is irrelevant
+     channelclose := make(chan int)
+
+     go func() {
+          fmt.Println(&quot;goroutine message&quot;)
+	
+	  channelclose &lt;- 1
+          // Just send a signal &quot;I'm done&quot;
+          close(channelclose)
+     }()
+
+     fmt.Println(&quot;main function message&quot;)
+     intvar := &lt;-channelclose
+     fmt.Println(&quot;Here's the channel value:&quot;,intvar)
+} 
+</code></pre>
+
+<p><a href="https://play.golang.org/p/nlBgeOGxyY7">golang playground</a>
+</br>ref: <a href="http://guzalexander.com/2013/12/06/golang-channels-tutorial.html">http://guzalexander.com/2013/12/06/golang-channels-tutorial.html</a></p>
+
+<p>Notice that by closing the channel right after an int is sent to the channel the main thread becomes &lsquo;unblocked&rsquo; and the subsequent reading from
+channelclose continues without error.  There is no need to set a value when reading from a channel - an empty read can be used to unblock/synchronize the running program:</p>
+
+<pre><code>package main
+func main() {
+     done := make(chan bool)
+
+     go func() {
+          println(&quot;goroutine message&quot;)
+
+          // We are only interested in the fact of sending itself, 
+          // but not in data being sent.
+          done &lt;- true
+     }()
+
+     println(&quot;main function message&quot;)
+     &lt;-done 
+     println(&quot;done channel not blocking&quot;)
+} 
+</code></pre>
+
+<p><a href="https://play.golang.org/p/0FixSuP3nY2">golang playground</a>
+</br>ref: <a href="http://guzalexander.com/2013/12/06/golang-channels-tutorial.html">http://guzalexander.com/2013/12/06/golang-channels-tutorial.html</a></p>
+
+<h3 id="sometimes-sending-nothing-is-the-best-course-of-action">Sometimes sending nothing is the best course of action</h3>
+
+<p>An interesting point about the last code snippet above is that an empty read can unblock the main thread and actually help especially when using mutilple channels and accessing objects while sending and reading.  For the <a href="https://github.com/stuarmark/learn-go/tree/master/src/exercises/rock-paper-scissors">rock-paper-scissors</a> problem an empty struct was sent and read in a second channel to allow operations on objects and other channels to complete in a more synchronous manner (there&rsquo;s a sync package in golang that can be used for synchronization but that&rsquo;s to come in a later blog post ;)):</p>
+
+<pre><code>package main
+
+import (
+	&quot;fmt&quot;
+)
+
+
+func emptystruct(mainchannel chan bool, emptystructchan chan struct{}) {
+	&lt;-emptystructchan
+	for i := 0; i &lt; 3; i++ {
+		fmt.Println(&quot;One and a two and a:&quot;, i)
+		mainchannel &lt;- true
+	}
+	emptystructchan &lt;- struct{}{}
+}
+
+
+func main() {
+    mainchannel := make(chan bool)
+    emptystructchan := make(chan struct{})
+
+    go emptystruct(mainchannel,emptystructchan)
+
+    emptystructchan &lt;- struct{}{}
+
+    &lt;- mainchannel
+    &lt;- mainchannel
+    &lt;- mainchannel
+
+    fmt.Println(&quot;All reads from mainchannel completed&quot;)
+    close(emptystructchan)
+
+} 
+</code></pre>
+
+<p><a href="https://play.golang.org/p/uiY8nyoUxws">golang playground</a></p>
+
+<p>There&rsquo;s alot more to channels than what&rsquo;s been sampled here - it took me almost 3 days to get the rock-paper-scissors problem worked out after scouring google stem to stern - but they are certainly a powerful type in golang and are useful in setting up pipelines and concurrent flows.  More to come on channels later, including stumbling through the use of the sync package&hellip;.</p>
+
+<p>Thanks for reading.</p>
+
+    </div>
+    
+        <div class="nav-left">
+    <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fstuarmark.github.io%2fposts%2f20180125%2f" title="Share on Facebook" target="_blank"><span class="fa fa-facebook fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://plus.google.com/share?url=https%3a%2f%2fstuarmark.github.io%2fposts%2f20180125%2f" title="Share on Google+" target="_blank"><span class="fa fa-google-plus fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fstuarmark.github.io%2fposts%2f20180125%2f" title="Share on LinkedIn" target="_blank"><span class="fa fa-linkedin fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://twitter.com/home?status=Some%20golang%20channel%20observations - https%3a%2f%2fstuarmark.github.io%2fposts%2f20180125%2f" title="Tweet this" target="_blank"><span class="fa fa-twitter fa-2x"></span></a>
+    <a class="nav-item" href="http://www.reddit.com/submit?url=https%3a%2f%2fstuarmark.github.io%2fposts%2f20180125%2f&title=Some%20golang%20channel%20observations" title="Share on Reddit" target="_blank"><span class="fa fa-reddit-alien fa-2x" aria-hidden="true"></span></a>
+    
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; 2017 | <a href="https://github.com/mgjohansen/hucore.git" target="_blank">Hucore theme</a> & <a href="http://gohugo.io" target="_blank">Hugo</a></p>
+  </div>
+</section>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js" integrity="sha256-+bhVTaRmJ/c07eV80nU8gD2cBBF0rYkf1txqXlrbvb0=" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/languages/go.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/languages/css.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/languages/html.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+</body>

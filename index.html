@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.30.2" />
+	<meta name="generator" content="Hugo 0.33" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta content="Programming, Google Cloud Platform, Go" name="keywords">
@@ -11,15 +11,7 @@
 <meta property="og:description" content="Mark Stuart&#39;s Github IO pages">
 <meta property="og:type" content="website" />
 <title>Mark Stuart | Github IO</title>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111384439-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'UA-111384439-1');
-</script>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
@@ -66,6 +58,25 @@
 
 <section class="section">
   <div class="container">
+    
+    <article>
+      <h1 class="title"><a href="https://stuarmark.github.io/posts/20180125/">Some golang channel observations</a></h1>
+      <h2 class="subtitle is-5">25 Jan 2018</h2>
+      
+      <div class="content">
+        tldr;
+Working on an interesting golang tutorial using channels I came to a few helpful conclusions.
+Starting Out &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The particular problem I was solving was a rock-paper-scissors game where I was trying to determine my opponent&rsquo;s choice and make sure that I would beat them (see this) when we came to the &lsquo;showdown&rsquo;. There was one channel that was passed to both my &lsquo;player&rsquo; function and my &lsquo;opponent&rsquo;, with which you could send and recieve a struct with a user id along with the choice made: 1-Rock, 2-Paper, and 3-Scissors.
+        
+        ...<a class="button is-link" href="https://stuarmark.github.io/posts/20180125/" style="height:28px">
+          Read more...
+          <span class="icon is-small">
+            
+          </span>
+        </a>
+        
+      </div>
+    </article>
     
     <article>
       <h1 class="title"><a href="https://stuarmark.github.io/posts/20171217/">Using GCP Cloud Source Repository</a></h1>

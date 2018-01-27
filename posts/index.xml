@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2017 | &lt;a href=&#34;https://github.com/mgjohansen/hucore.git&#34; target=&#34;_blank&#34;&gt;Hucore theme&lt;/a&gt; &amp; &lt;a href=&#34;http://gohugo.io&#34; target=&#34;_blank&#34;&gt;Hugo&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 17 Dec 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jan 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://stuarmark.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Some golang channel observations</title>
+      <link>https://stuarmark.github.io/posts/20180125/</link>
+      <pubDate>Thu, 25 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://stuarmark.github.io/posts/20180125/</guid>
+      <description>tldr;
+Working on an interesting golang tutorial using channels I came to a few helpful conclusions.
+Starting Out &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;The particular problem I was solving was a rock-paper-scissors game where I was trying to determine my opponent&amp;rsquo;s choice and make sure that I would beat them (see this) when we came to the &amp;lsquo;showdown&amp;rsquo;. There was one channel that was passed to both my &amp;lsquo;player&amp;rsquo; function and my &amp;lsquo;opponent&amp;rsquo;, with which you could send and recieve a struct with a user id along with the choice made: 1-Rock, 2-Paper, and 3-Scissors.</description>
+    </item>
     
     <item>
       <title>Using GCP Cloud Source Repository</title>
